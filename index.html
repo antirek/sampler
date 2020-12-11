@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Sampler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"/>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+  </head>
+<body>
+  <div class="heading">
+    <h1>Sampler</h1>
+  </div>
+
+  <div class="container" id="app">
+    <div class="form-group">
+      <label>
+        <button class="btn btn-primary btn-sm" @click.prevent="playSound('sounds/airplane.mp3')">
+          <span class="fa fa-play-circle-o"></span>
+        </button>
+        Play Air Plane Ding
+      </label>
+      <br>
+      <label>
+        <button class="btn btn-primary btn-sm" @click.prevent="playSound('sounds/elevator.mp3')">
+          <span class="fa fa-play-circle-o"></span>
+        </button>
+        Play Elevator Ding
+      </label>
+    </div>
+    
+  </div>
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        text: ''
+      },
+      methods: {
+        playSound (sound) {
+          if(sound) {
+            var audio = new Audio(sound);
+            audio.play();
+          }
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>
+  
