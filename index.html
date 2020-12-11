@@ -33,19 +33,50 @@
   </div>
   <script>
 
+    const sounds = [
+      {
+        link: 'sounds/airplane.mp3',
+        key: 'q',
+        id: 'airplane',
+      },
+      {
+        link: 'sounds/elevator.mp3',
+        key: 'a',
+        id: 'elevator',
+      },
+    ];
+      
     new Vue({
       el: '#app',
       data: {
-        text: ''
+        sounds,
+      },
+      created() {
+        this.onKeyDown = this.onKeyDown.bind(this);
+        document.addEventListener('keydown', this.onKeyDown);
+      },
+      destroyed() {
+        document.removeEventListener('keydown', this.onKeyDown);
       },
       methods: {
-        playSound (sound) {
-          if(sound) {
-            var audio = new Audio(sound);
+        getSoundUrlByKey(key) {
+          const sound = this.sounds.find(s => s.key === key);
+          return sound.link;
+        },
+        playSound (soundUrl) {
+          if(soundUrl) {
+            var audio = new Audio(soundUrl);
             audio.play();
           }
-        }
-      }
+        },
+        onKeyDown(e) {
+          console.log('e',e);
+          switch (e.key) {
+            case 'a': this.playSound(this.getSoundUrlByKey('a')); break; // 'a' key
+            case 'q': this.playSound(this.getSoundUrlByKey('q')); break; // 'b' key
+          }
+        },
+      },
     });
 
   </script>
