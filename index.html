@@ -1,36 +1,30 @@
 <html>
   <head>
-    <title>Sampler</title>
+    <title>Videoconference sampler</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"/>
-    
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"/>    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="style.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
   </head>
 <body>
-  <div class="heading">
-    <h1>Sampler</h1>
+  <div class="container" id="app">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Videoconference sampler</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label v-for="sound in sounds">
+          <button class="btn btn-primary btn-sm" @click.prevent="playSoundById(sound.id)">
+            <span class="fa fa-play-circle-o"></span>
+          </button>
+          {{ sound.title }} ({{ sound.key}})
+        </label>        
+      </div>
+    </div>
   </div>
 
-  <div class="container" id="app">
-    <div class="form-group">
-      <label>
-        <button class="btn btn-primary btn-sm" @click.prevent="playSound('sounds/airplane.mp3')">
-          <span class="fa fa-play-circle-o"></span>
-        </button>
-        Play Air Plane Ding
-      </label>
-      <br>
-      <label>
-        <button class="btn btn-primary btn-sm" @click.prevent="playSound('sounds/elevator.mp3')">
-          <span class="fa fa-play-circle-o"></span>
-        </button>
-        Play Elevator Ding
-      </label>
-    </div>
-    
-  </div>
   <script>
 
     const sounds = [
@@ -38,12 +32,39 @@
         link: 'sounds/airplane.mp3',
         key: 'q',
         id: 'airplane',
+        title: 'Play Air Plane Ding',
       },
       {
         link: 'sounds/elevator.mp3',
         key: 'a',
         id: 'elevator',
+        title: 'Play Elevator Ding',
       },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-07/1595821355_7ff94abcf5b81cd.mp3',
+        key: 'w',
+        id: 'wow',
+        title: 'Wow',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-08/1597900865_zabavno.mp3',
+        key: 'e',
+        id: 'zabavno',
+        title: 'Гравити-Фолз, Дед: Забавно',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-08/1597899253_net-net.mp3',
+        key: 'e',
+        id: 'zabavno',
+        title: 'Гравити-Фолз, Мэйбл: Нет, нет, нет',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2019-07/1562222915_malysh-i-karlson.mp3',
+        key: 'r',
+        id: 'man-in-sky',
+        title: 'Малыш и Карлсон: я мужчина хоть куда',
+      },
+      
     ];
       
     new Vue({
@@ -69,12 +90,13 @@
             audio.play();
           }
         },
+        playSoundById (id) {
+          const sound = this.sounds.find(s => s.id === id);
+          this.playSound(sound.link);
+        },
         onKeyDown(e) {
-          console.log('e',e);
-          switch (e.key) {
-            case 'a': this.playSound(this.getSoundUrlByKey('a')); break; // 'a' key
-            case 'q': this.playSound(this.getSoundUrlByKey('q')); break; // 'b' key
-          }
+          // console.log('e',e);
+          this.playSound(this.getSoundUrlByKey(e.key));
         },
       },
     });
