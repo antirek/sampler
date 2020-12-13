@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-4">
         <label v-for="sound in sounds">
-          <button class="btn btn-primary btn-sm" @click.prevent="playSoundById(sound.id)">
+          <button class="btn btn-primary btn-sm" @click.prevent="playSoundByKey(sound.key)">
             <span class="fa fa-play-circle-o"></span>
           </button>
           {{ sound.title }} ({{ sound.key}})
@@ -26,45 +26,62 @@
   </div>
 
   <script>
-
     const sounds = [
-      {
-        link: 'sounds/airplane.mp3',
-        key: 'q',
-        id: 'airplane',
-        title: 'Play Air Plane Ding',
-      },
-      {
-        link: 'sounds/elevator.mp3',
-        key: 'a',
-        id: 'elevator',
-        title: 'Play Elevator Ding',
-      },
       {
         link: 'https://zvukipro.com/uploads/files/2020-07/1595821355_7ff94abcf5b81cd.mp3',
         key: 'w',
-        id: 'wow',
         title: 'Wow',
       },
       {
         link: 'https://zvukipro.com/uploads/files/2020-08/1597900865_zabavno.mp3',
         key: 'e',
-        id: 'zabavno',
         title: 'Гравити-Фолз, Дед: Забавно',
       },
       {
         link: 'https://zvukipro.com/uploads/files/2020-08/1597899253_net-net.mp3',
-        key: 'e',
-        id: 'zabavno',
+        key: 'r',
         title: 'Гравити-Фолз, Мэйбл: Нет, нет, нет',
       },
       {
         link: 'https://zvukipro.com/uploads/files/2019-07/1562222915_malysh-i-karlson.mp3',
-        key: 'r',
-        id: 'man-in-sky',
+        key: 't',
         title: 'Малыш и Карлсон: я мужчина хоть куда',
       },
-      
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-08/1597120820_character_timmy_oops_2.mp3',
+        key: 'y',
+        title: 'Грустный Упс',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-08/1596814476_ringtony_ot_zhirinovskogo.mp3',
+        key: 'u',
+        title: 'Жириновский: Тишина',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-08/1596808616_zhirik.mp3',
+        key: 'i',
+        title: 'Жириновский: Добро пожаловать в Россию',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-09/1598939464_vyjdi.mp3',
+        key: 'o',
+        title: 'Учитель: выйди и зайди нормально',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-09/1598940133_hudshij.mp3',
+        key: 'p',
+        title: 'Учитель: вы самый худший класс',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-10/1603101210_ja-vas-prosh.mp3',
+        key: 's',
+        title: 'Путин: Я вас прошу как можно быстрее закончить эту работу',
+      },
+      {
+        link: 'https://zvukipro.com/uploads/files/2020-10/1603098640_vyffy.mp3',
+        key: 'd',
+        title: 'Путин: Где деньги, пусть деньги вернут',
+      },
     ];
       
     new Vue({
@@ -90,18 +107,14 @@
             audio.play();
           }
         },
-        playSoundById (id) {
-          const sound = this.sounds.find(s => s.id === id);
-          this.playSound(sound.link);
+        playSoundByKey (key) {          
+          this.playSound(this.getSoundUrlByKey(key));
         },
         onKeyDown(e) {
-          // console.log('e',e);
           this.playSound(this.getSoundUrlByKey(e.key));
         },
       },
     });
-
   </script>
 </body>
 </html>
-  
